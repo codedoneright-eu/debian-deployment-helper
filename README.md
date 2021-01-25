@@ -69,7 +69,7 @@ Added shares module
 
 0.3
 Packages module now allows for selection between GNOME and xfce4, xfce selection
-installs some GNOME ackages (terminal, text editor, calculator, 
+installs some GNOME packages (terminal, text editor, calculator)
 
 0.2
 Divided the script into modules, each performing a specific part, 
