@@ -60,7 +60,7 @@ if [ $PART = b ]; then
 
     echo ""
     echo "The file ${NAMEB}_${TIMESTAMP}.zip is about ${SIZE}."
-    echo "Full file path is ${WORK_DIR}/${NAMEB}_{$TIMESTAMP}.zip"
+    echo "Full file path is ${WORK_DIR}/${NAMEB}_${TIMESTAMP}.zip"
 
 elif [ $PART = r ]; then
 
