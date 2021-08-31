@@ -8,18 +8,15 @@ if [ $GUI_SELECT = g ]; then
 	apt install kate -y
 	apt install vlc -y
 	apt install zip -y
-	apt install lollypop -y
-	apt install synaptic -y
-	apt install xpaint -y
+	apt install rhythmbox -y
 	apt install spyder3 -y
 	apt install libreoffice -y
-	apt install gimp -y
+#	apt install gimp -y
 
-	apt install chromium -y
-	apt install chrome-gnome-shell -y
+	apt install firefox-esr -y
 	apt install filezilla -y
 	apt install thunderbird -y
-	apt install mumble -y
+#	apt install mumble -y
 
 elif [ $GUI_SELECT = x ]; then
 
@@ -30,16 +27,14 @@ elif [ $GUI_SELECT = x ]; then
 	apt install vlc -y
 	apt install zip -y
 	apt install rhythmbox -y
-	apt install synaptic -y
-	apt install xpaint -y
 	apt install spyder3 -y
 	apt install libreoffice -y
-	apt install gimp -y
+#	apt install gimp -y
 
-	apt install chromium -y
+	apt install firefox-esr -y
 	apt install filezilla -y
 	apt install thunderbird -y
-	apt install mumble -y
+#	apt install mumble -y
 	
 
 #No packages, skip this module entirely
