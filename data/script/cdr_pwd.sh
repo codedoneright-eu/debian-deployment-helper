@@ -8,7 +8,7 @@ case "$1" in
 echo "
 cdr_pwd - password creation script
 
-Provide a random password from the combination of the following: [1-9], [a-z], 
+Provides a random password from the combination of the following: [1-9], [a-z], 
 [A-Z] and [!@#$%&]. Password length is random, from 13 to 20 characters. For the
 sake of convenience it will not use the following characters '0,i,l,o,I'
 
@@ -19,9 +19,9 @@ Usage: cdr_pwd.sh [OPTION] [#]
     	where # is the number of passwords to create
   -h	show this help
   
-For convenience use output redirection to create a file containing multiple 
-passwords. E.g. 'cdr_pwd.sh -m 100 >> ~/pwd'. This will create a file named 
-'pwd' in user's home directory containing 100 fresh and random passwords.
+You can use output redirection to create a file containing multiple passwords.
+E.g. 'cdr_pwd.sh -m 100 >> ~/pwd'. This will create a file named 'pwd' in user's
+home directory containing 100 fresh and random passwords.
 
 Contact information - <https://codedoneright.eu/?page_id=40>"
 
