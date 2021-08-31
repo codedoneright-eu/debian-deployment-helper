@@ -8,13 +8,14 @@ if [ $SCRIPT_INSTALL = y ]; then
 	chmod +x -R /var/zzz_script/
 	echo "alias cdr_backup='/var/zzz_script/cdr_backup.sh'" >> /home/${SCRIPT_USER}/.bash_aliases
 	echo "alias cdr_pwd='/var/zzz_script/cdr_pwd.sh'" >> /home/${SCRIPT_USER}/.bash_aliases
+	echo "alias cdr_ssh='/var/zzz_script/cdr_ssh.sh'" >> /home/${SCRIPT_USER}/.bash_aliases
 	echo "alias cdr_sync='/var/zzz_script/cdr_sync.sh'" >> /home/${SCRIPT_USER}/.bash_aliases
-	
+
 	echo ""
 	echo "Commonly used script has been installed in /var/zzz_script/"
 
 else
-	
+
 	echo ""
 	echo "No script will be installed"
 
