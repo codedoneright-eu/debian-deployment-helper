@@ -11,12 +11,10 @@ if [ $GUI_SELECT = g ]; then
 	apt install rhythmbox -y
 	apt install spyder3 -y
 	apt install libreoffice -y
-#	apt install gimp -y
 
 	apt install firefox-esr -y
 	apt install filezilla -y
 	apt install thunderbird -y
-#	apt install mumble -y
 
 elif [ $GUI_SELECT = x ]; then
 
@@ -29,21 +27,11 @@ elif [ $GUI_SELECT = x ]; then
 	apt install rhythmbox -y
 	apt install spyder3 -y
 	apt install libreoffice -y
-#	apt install gimp -y
 
 	apt install firefox-esr -y
 	apt install filezilla -y
 	apt install thunderbird -y
-#	apt install mumble -y
-	
 
-#No packages, skip this module entirely
 else
-
 	echo ""
-	echo "No utilities will be installed"
-
 fi
-
-echo ""
-echo "Moving to next module..."
