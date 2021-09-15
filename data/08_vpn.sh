@@ -8,7 +8,8 @@ if [ $VPN_INSTALL = y ]; then
 	chown ${USERNAME_INSTALL}:${USERNAME_INSTALL} -R /home/${USERNAME_INSTALL}/.vpn/
 	chmod +x -R /home/${USERNAME_INSTALL}/.vpn/
 	echo "alias cdr_vpn='sudo openvpn --config /home/${USERNAME_INSTALL}/.vpn/${VPN_CONF} --daemon'" >> /home/${USERNAME_INSTALL}/.bash_aliases
+
+	echo "VPN connection is available via 'cdr_vpn' alias" >> ${DDH_LOG}
 else
 	echo ""
 fi
-
