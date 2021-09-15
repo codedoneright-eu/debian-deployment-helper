@@ -14,6 +14,7 @@ if [ $SCRIPT_INSTALL = y ]; then
 
 	chown ${USERNAME_INSTALL}:${USERNAME_INSTALL} /home/${USERNAME_INSTALL}/.bash_aliases
 
+	echo "Useful script has been installed in /var/zzz_script/ folder" >> ${DDH_LOG}
 else
 	echo ""
 fi
