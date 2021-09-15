@@ -9,7 +9,7 @@ if [ $GUI_SELECT = g ]; then
 	apt install gpaste -y
 	apt install gnome-shell-extensions-gpaste -y
 	apt install gnome-tweaks -y
-
+	echo "Installed GNOME desktop" >> ${DDH_LOG}
 #This will install XFCE4 desktop environment
 elif [ $GUI_SELECT = x ]; then
 
@@ -26,7 +26,7 @@ elif [ $GUI_SELECT = x ]; then
 	apt install nautilus -y
 	apt install xfce4-clipman -y
 	apt purge gnome-keyring -y
-
+	echo "Installed XFCE4 desktop" >> ${DDH_LOG}
 else
-	echo ""
+	echo "Desktop and utilities have not been installed" >> ${DDH_LOG}
 fi
