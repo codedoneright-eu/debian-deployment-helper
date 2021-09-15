@@ -10,7 +10,13 @@ if [ $GUI_SELECT = g ]; then
 	apt install zip -y
 	apt install rhythmbox -y
 	apt install spyder3 -y
+
 	apt install libreoffice -y
+	apt install gimp -y
+	apt install mcomix -y
+	apt install shotcut -y
+	apt install obs-studio -y
+	apt install dolphin-emu -y
 
 	apt install firefox-esr -y
 	apt install filezilla -y
@@ -26,7 +32,13 @@ elif [ $GUI_SELECT = x ]; then
 	apt install zip -y
 	apt install rhythmbox -y
 	apt install spyder3 -y
+
 	apt install libreoffice -y
+	apt install gimp -y
+	apt install mcomix -y
+	apt install shotcut -y
+	apt install obs-studio -y
+	apt install dolphin-emu -y
 
 	apt install firefox-esr -y
 	apt install filezilla -y
