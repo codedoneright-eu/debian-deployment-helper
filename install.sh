@@ -1,5 +1,5 @@
 #!/bin/bash
-#Version: 1.4
+#Version: 1.5
 #Additional information available in read.me file
 
 clear
@@ -22,7 +22,8 @@ clear
 
 echo "Please answer a few questions so that the script can tailor the experience"
 echo "to your needs. To install utilities you have to install GUI as well."
-echo "Yes/No prompts should be answered with lowercase y/n."
+echo ""
+echo "Yes/No prompts should be answered with a lowercase y/n."
 
 #Check username for uid=1000
 USERNAME_INSTALL="$(cat /etc/passwd | grep 1000 | awk -F: '{print $1}')"
@@ -33,7 +34,6 @@ read -p "Would you like to add your non-administrative user to sudo group (y/n):
 
 	if [ $SUDO_GIVE = y ]; then
 		usermod -aG sudo ${USERNAME_INSTALL}
-		echo ""
 		echo "User ${USERNAME_INSTALL} has been added to the sudo group"
 	else
 		echo ""
@@ -41,7 +41,7 @@ read -p "Would you like to add your non-administrative user to sudo group (y/n):
 
 #Ask the user which GUI should be installed
 echo ""
-echo "Please choose desktop environment..."
+echo "Which desktop environment do you want to install..."
 echo "GNOME - g"
 echo "xfce4 - x"
 
@@ -69,19 +69,25 @@ read -p "Would you like to mount a network share (y/n)? " SHARE_INSTALL
 echo ""
 read -p "Would you like to install VPN service? (y/n): " VPN_INSTALL
 
+#Ask if the user wants to add spotify repository
+echo ""
+read -p "Would you like to add Spotify repository? (y/n): " SPOTIFY
+
+#Ask if the user wants to add Signal repository
+echo ""
+read -p "Would you like to add Signal repository? (y/n): " SIGNAL
+
+#Ask if the user wants to add other apps
+echo ""
+read -p "Would you like to download additional .deb files? (y/n): " OTHER_APPS
+
+#Ask if the user wants to add nVidia drivers PPA
+echo ""
+read -p "Would you like to install nVidia drivers? (y/n): " NVIDIA_DRIVERS
+
 #Ask user if wants to reboot when finished
 echo ""
 read -p "Would you like to shutdown the system when finished? (y/n): " SHUTDOWN_NOW
-
-#Export variables for use with other modules
-export USERNAME_INSTALL
-export SUDO_GIVE
-export GUI_SELECT
-export SCRIPT_INSTALL
-export SHARE_INSTALL
-export SHARE_FOLDER
-export SHARE_PATH
-export VPN_INSTALL
 
 #Display summary
 clear
@@ -92,7 +98,7 @@ echo "Username:                          ${USERNAME_INSTALL}"
 	if [ $SUDO_GIVE = y ]; then
 		echo "                                   sudo granted"
 	else
-		echo "                                   sudo not granted"
+		echo "                                   sudo NOT granted"
 	fi
 echo "Desktop to be installed:           ${GUI_SELECT}"
 echo "Additional script installation:    ${SCRIPT_INSTALL}"
@@ -104,18 +110,55 @@ echo "Network share added:               ${SHARE_INSTALL}"
 		echo "                                   no changes to fstab"
 	fi
 echo "Install VPN service:               ${VPN_INSTALL}"
+echo "Install Spotify repository:        ${SPOTIFY}"
+echo "Install Signal repository:         ${SIGNAL}"
+echo "Download other apps:               ${OTHER_APPS}"
+echo "Install nVidia drivers:            ${NVIDIA_DRIVERS}"
 echo "Shutdown after finishing:          ${SHUTDOWN_NOW}"
-echo ""
-echo "Type 'alias' in terminal after the reboot to see new aliases."
-echo "You can remove Debian Deployment Helper from your disk after rebooting"
 echo ""
 echo "Script will start working on your system after this prompt."
 echo "Time needed for completion depends on your system and internet speed"
+echo ""
+echo "Log file will be created in /home/${USERNAME_INSTALL}/ddh-log.txt"
 echo ""
 read -p "Press enter to continue or Ctrl+C to abort " foo
 
 #Script starts actual work here
 clear
+
+#Create log
+touch /home/${USERNAME_INSTALL}/ddh-log.txt
+chown ${USERNAME_INSTALL}:${USERNAME_INSTALL} /home/${USERNAME_INSTALL}/ddh-log.txt
+
+DDH_LOG=/home/${USERNAME_INSTALL}/ddh-log.txt
+
+echo "Debian Deployment Helper log
+============================
+Quick system update and upgrade available via 'cdr_update' and 
+'cdr_upgrade' commands in CLI
+" >> ${DDH_LOG}
+
+#Add note in log if user granted sudo
+if [ $SUDO_GIVE = y ]; then
+	echo "User ${USERNAME_INSTALL} has been granted sudo privilege" >> ${DDH_LOG}
+else
+	echo "User ${USERNAME_INSTALL} has not been granted sudo privilege" >> ${DDH_LOG}
+fi
+
+#Export variables for use with other modules
+export USERNAME_INSTALL
+export SUDO_GIVE
+export GUI_SELECT
+export SCRIPT_INSTALL
+export SHARE_INSTALL
+export SHARE_FOLDER
+export SHARE_PATH
+export VPN_INSTALL
+export SPOTIFY
+export SIGNAL
+export OTHER_APPS
+export NVIDIA_DRIVERS
+export DDH_LOG
 
 #Amend sources.list, sources contain contrib and non-free mirrors
 echo "
@@ -151,8 +194,25 @@ apt upgrade -y
 #Add vpn
 ./data/08_vpn.sh
 
-#Create log
-./data/98_log.sh
+#Add spotify repository
+./data/09_spotify.sh
+
+#Install other non-free apps
+./data/10_other_apps.sh
+
+#Install nVidia drivers
+./data/11_nvidia.sh
+
+#Add spotify repository
+./data/12_signal.sh
+
+#Put wallpaper in the correct place for immediate use
+./data/13_wallpaper.sh
+
+#Write out all installed packages (moved here so the long list is at the end)
+echo "
+Following packages have been installed:" >> ${DDH_LOG}
+awk '$3~/^install$/ {print $4;}' /var/log/dpkg.log >> ${DDH_LOG}
 
 #Shutdown section
 	if [ $SHUTDOWN_NOW = y ]; then
