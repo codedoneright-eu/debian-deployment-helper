@@ -95,7 +95,6 @@ Changelog
 Removed nVidia Drivers PPA (I added Ubuntu PPA to Debian without thinking...)
 Added module installing nVidia drivers from the repository
 Logging changed to be done in respective modules
-Introduced wallpaper module, it simply copies files to default wallpaper dir
 read.me cleanup
 Feature to add: check for VPN files and leave a log entry if not found
 
