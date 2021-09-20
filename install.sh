@@ -1,5 +1,5 @@
 #!/bin/bash
-#Version: 1.5
+#Version: 1.7
 #Additional information available in read.me file
 
 clear
@@ -205,6 +205,9 @@ apt upgrade -y
 
 #Add spotify repository
 ./data/12_signal.sh
+
+#Put wallpaper in the correct place for immediate use
+./data/13_wallpaper.sh
 
 #Write out all installed packages (moved here so the long list is at the end)
 echo "
