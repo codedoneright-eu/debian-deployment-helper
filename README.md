@@ -91,10 +91,16 @@ To install execute 'sudo dpkg -i $package_name -y' from the ~/ directory
 
 Changelog
 =========================================================
+1.7 - 20/09/2021
+Fixed SSH script as expect did not recognise variables properly
+Everything was tested and works as intended, unless I need a new feature I
+consider this a final version as it does exactly what I expected
+
 1.6 - 15/19/2021
 Removed nVidia Drivers PPA (I added Ubuntu PPA to Debian without thinking...)
 Added module installing nVidia drivers from the repository
 Logging changed to be done in respective modules
+Introduced wallpaper module, it simply copies files to default wallpaper dir
 read.me cleanup
 Feature to add: check for VPN files and leave a log entry if not found
 
