@@ -1,4 +1,4 @@
-Debian Deployment Helper for GNU/Linux Debian 11 (Buster)
+Debian Deployment Helper for GNU/Linux Debian 11
 =========================================================
 This is a bash script that streamlines the deployment of a fresh GNU/Linux 
 Debian 11. The assumption is that the user installed a netinst version without
