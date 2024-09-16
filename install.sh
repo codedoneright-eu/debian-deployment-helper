@@ -165,6 +165,7 @@ export SIGNAL
 export OTHER_APPS
 export BRAVE
 export GITHUB
+export MULLVAD
 export NVIDIA_DRIVERS
 export DDH_LOG
 
@@ -222,6 +223,9 @@ echo "System is up to date" >> ${DDH_LOG}
 #Add github repository
 ./data/14_github.sh
 
+#Add mullvad repository
+./data/15_mullvad.sh
+
 #Put wallpaper in the correct place for immediate use
 #./data/13_wallpaper.sh
 
@@ -237,6 +241,8 @@ Commands to install additional software:
 sudo apt install spotify-client -y
 sudo apt install signal-desktop -y
 sudo apt install brave-browser -y
+sudo apt install mullvad-vpn
+sudo apt install github-desktop
 sudo dpkg -i XnViewMP-linux-x64.deb -y
 sudo dpkg -i steam_latest.deb -y
 
