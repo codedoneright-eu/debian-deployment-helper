@@ -1,7 +1,7 @@
-Debian Deployment Helper for GNU/Linux Debian 11
+Debian Deployment Helper for GNU/Linux Debian 12 (Bookworm)
 =========================================================
 This is a bash script that streamlines the deployment of a fresh GNU/Linux 
-Debian 11. The assumption is that the user installed a netinst version without
+Debian 12. The assumption is that the user installed a netinst version without
 any additional packages, not even GUI, to make the system as lightweight as 
 possible, and then tweak it with the help of this script.
 
@@ -91,6 +91,10 @@ To install execute 'sudo dpkg -i $package_name -y' from the ~/ directory
 
 Changelog
 =========================================================
+1.8 - 16/09/2024
+Ditching Ubuntu so fixed the script for Debian 12 (Bookworm), same
+functionality, just an update
+
 1.7 - 20/09/2021
 Fixed SSH script as expect did not recognise variables properly
 Everything was tested and works as intended, unless I need a new feature I

@@ -9,3 +9,4 @@ spawn ssh $CDR_USERNAME@$CDR_IP
 expect "assword:"
 send "$CDR_PW\r"
 interact
+

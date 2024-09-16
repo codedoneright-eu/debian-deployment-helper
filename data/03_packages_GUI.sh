@@ -3,14 +3,15 @@
 #This will install GNOME desktop environment
 if [ $GUI_SELECT = g ]; then
 
-	apt install gnome -y
+	apt install gnome --no-install-recommends -y
 	apt install gnome-shell-extensions -y
 	apt install gnome-tweak-tool -y
 	apt install gpaste -y
-	apt install gnome-shell-extensions-gpaste -y
-	apt install gnome-tweaks -y
+	apt install gnome-shell-extension-gpaste -y
 	echo "Installed GNOME desktop" >> ${DDH_LOG}
-#This will install XFCE4 desktop environment
+
+
+#This will install XFCE4 desktop environment - incomplete
 elif [ $GUI_SELECT = x ]; then
 
 	apt install xfce4 -y
@@ -27,6 +28,8 @@ elif [ $GUI_SELECT = x ]; then
 	apt install xfce4-clipman -y
 	apt purge gnome-keyring -y
 	echo "Installed XFCE4 desktop" >> ${DDH_LOG}
+
 else
-	echo "Desktop and utilities have not been installed" >> ${DDH_LOG}
+	echo ""
 fi
+

@@ -4,10 +4,10 @@
 
 clear
 
-echo "Debian Deployment Helper for GNU/Linux Debian 11 (Buster)"
+echo "Debian Deployment Helper for GNU/Linux Debian 12 (Bookworm)"
 echo ""
 echo "Before proceeding, make sure that your PC is connected to your router via"
-echo "cable. DDH script assumes cable connection for the initial system setup."
+echo "cable. DDH script assumes CABLE connection for the initial system setup."
 echo "You can connect to WiFi after the reboot."
 echo ""
 echo "Script amends sources.list for network mirrors and adds non-free and"
@@ -85,6 +85,10 @@ read -p "Would you like to download additional .deb files? (y/n): " OTHER_APPS
 echo ""
 read -p "Would you like to install nVidia drivers? (y/n): " NVIDIA_DRIVERS
 
+#Ask if the user wants to add nVidia drivers PPA
+echo ""
+read -p "Would you like to install Brave browser? (y/n): " BRAVE
+
 #Ask user if wants to reboot when finished
 echo ""
 read -p "Would you like to shutdown the system when finished? (y/n): " SHUTDOWN_NOW
@@ -134,8 +138,6 @@ DDH_LOG=/home/${USERNAME_INSTALL}/ddh-log.txt
 
 echo "Debian Deployment Helper log
 ============================
-Quick system update and upgrade available via 'cdr_update' and 
-'cdr_upgrade' commands in CLI
 " >> ${DDH_LOG}
 
 #Add note in log if user granted sudo
@@ -157,25 +159,28 @@ export VPN_INSTALL
 export SPOTIFY
 export SIGNAL
 export OTHER_APPS
+export BRAVE
 export NVIDIA_DRIVERS
 export DDH_LOG
 
 #Amend sources.list, sources contain contrib and non-free mirrors
 echo "
-deb http://deb.debian.org/debian bullseye main contrib non-free
-deb-src http://deb.debian.org/debian bullseye main contrib non-free
+deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
 
-deb http://deb.debian.org/debian-security/ bullseye-security main contrib non-free
-deb-src http://deb.debian.org/debian-security/ bullseye-security main contrib non-free
+deb http://security.debian.org/debian-security bookworm-security main  contrib non-free non-free-firmware
+deb-src http://security.debian.org/debian-security bookworm-security main  contrib non-free non-free-firmware
 
-deb http://deb.debian.org/debian bullseye-updates main contrib non-free
-deb-src http://deb.debian.org/debian bullseye-updates main contrib non-free" > /etc/apt/sources.list
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware" > /etc/apt/sources.list
 
 #Connect to the internet by establishing connection
 echo "Establishing connection and updating the system..."
 dhclient
 apt update
 apt upgrade -y
+
+echo "System is up to date" >> ${DDH_LOG}
 
 #Install GUI + utilities
 ./data/02_packages_system.sh
@@ -214,6 +219,20 @@ echo "
 Following packages have been installed:" >> ${DDH_LOG}
 awk '$3~/^install$/ {print $4;}' /var/log/dpkg.log >> ${DDH_LOG}
 
+#Write out all installed packages (moved here so the long list is at the end)
+echo "
+Commands to install additional software:
+
+sudo apt install spotify-client -y
+sudo apt install signal-desktop -y
+sudo apt install brave-browser -y
+sudo dpkg -i XnViewMP-linux-x64.deb -y
+sudo dpkg -i steam_latest.deb -y
+
+" >> ${DDH_LOG}
+
+apt update
+
 #Shutdown section
 	if [ $SHUTDOWN_NOW = y ]; then
 		shutdown now
@@ -223,3 +242,4 @@ awk '$3~/^install$/ {print $4;}' /var/log/dpkg.log >> ${DDH_LOG}
 	fi
 
 echo ""
+

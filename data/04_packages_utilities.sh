@@ -8,10 +8,8 @@ if [ $GUI_SELECT = g ]; then
 	apt install kate -y
 	apt install vlc -y
 	apt install zip -y
-	apt install rhythmbox -y
-	apt install spyder3 -y
+	apt install spyder -y
 
-	apt install libreoffice -y
 	apt install gimp -y
 	apt install mcomix -y
 	apt install shotcut -y
@@ -21,6 +19,9 @@ if [ $GUI_SELECT = g ]; then
 	apt install firefox-esr -y
 	apt install filezilla -y
 	apt install thunderbird -y
+
+	apt install clamav -y
+	apt install clamtk -y
 
 elif [ $GUI_SELECT = x ]; then
 
@@ -30,10 +31,8 @@ elif [ $GUI_SELECT = x ]; then
 	apt install kate -y
 	apt install vlc -y
 	apt install zip -y
-	apt install rhythmbox -y
-	apt install spyder3 -y
+	apt install spyder -y
 
-	apt install libreoffice -y
 	apt install gimp -y
 	apt install mcomix -y
 	apt install shotcut -y
@@ -44,6 +43,10 @@ elif [ $GUI_SELECT = x ]; then
 	apt install filezilla -y
 	apt install thunderbird -y
 
+	apt install clamav -y
+	apt install clamtk -y
+
 else
 	echo ""
 fi
+
