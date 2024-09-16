@@ -89,6 +89,10 @@ read -p "Would you like to install nVidia drivers? (y/n): " NVIDIA_DRIVERS
 echo ""
 read -p "Would you like to install Brave browser? (y/n): " BRAVE
 
+#Ask if the user wants to add nVidia drivers PPA
+echo ""
+read -p "Would you like to install GitHub desktop (Linux fork)? (y/n): " GITHUB
+
 #Ask user if wants to reboot when finished
 echo ""
 read -p "Would you like to shutdown the system when finished? (y/n): " SHUTDOWN_NOW
@@ -160,6 +164,7 @@ export SPOTIFY
 export SIGNAL
 export OTHER_APPS
 export BRAVE
+export GITHUB
 export NVIDIA_DRIVERS
 export DDH_LOG
 
@@ -211,8 +216,14 @@ echo "System is up to date" >> ${DDH_LOG}
 #Add spotify repository
 ./data/12_signal.sh
 
+#Add brave repository
+./data/13_brave.sh
+
+#Add github repository
+./data/14_github.sh
+
 #Put wallpaper in the correct place for immediate use
-./data/13_wallpaper.sh
+#./data/13_wallpaper.sh
 
 #Write out all installed packages (moved here so the long list is at the end)
 echo "
