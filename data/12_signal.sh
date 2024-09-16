@@ -1,10 +1,4 @@
 #!/bin/bash
-# This module adds Signal repository
-# To remove repository at a later date do the following:
-# 1: sudo apt-key list
-# 2: identify Signal key
-# 3: sudo apt-key del <Signal key>
-# 4: delete /etc/apt/sources.list.d/signal.list
 
 if [ $SIGNAL = y ]; then
 	wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg

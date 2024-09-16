@@ -1,5 +1,5 @@
 #!/bin/bash
-#Version: 1.7
+#Version: 1.9
 #Additional information available in read.me file
 
 clear
@@ -13,7 +13,14 @@ echo ""
 echo "Script amends sources.list for network mirrors and adds non-free and"
 echo "contrib repositories."
 echo "Changelog and additional information available in read.me file"
-
+echo ""
+echo "Caution! Any changes to your system will be made AFTER the summary"
+echo "with all your choices, you can safely cancel the execution of this" 
+echo "script before that by hitting CTRL+C."
+echo ""
+echo "Caution! XFCE packages have NOT been looked at after release of"
+echo "Debian 12, please use with caution. Will amend once I reinstall"
+echo "Debian on my laptop."
 echo ""
 read -p "Press enter to continue or Ctrl+C to abort " foo
 
@@ -21,7 +28,8 @@ read -p "Press enter to continue or Ctrl+C to abort " foo
 clear
 
 echo "Please answer a few questions so that the script can tailor the experience"
-echo "to your needs. To install utilities you have to install GUI as well."
+echo "to your needs. To install utilities you have to install GUI as well. In case"
+echo "you select anything else than Gnome or XFCE, the script defaults to Gnome"
 echo ""
 echo "Yes/No prompts should be answered with a lowercase y/n."
 
@@ -32,12 +40,6 @@ USERNAME_INSTALL="$(cat /etc/passwd | grep 1000 | awk -F: '{print $1}')"
 echo ""
 read -p "Would you like to add your non-administrative user to sudo group (y/n): " SUDO_GIVE
 
-	if [ $SUDO_GIVE = y ]; then
-		usermod -aG sudo ${USERNAME_INSTALL}
-		echo "User ${USERNAME_INSTALL} has been added to the sudo group"
-	else
-		echo ""
-	fi
 
 #Ask the user which GUI should be installed
 echo ""
@@ -48,11 +50,9 @@ echo "xfce4 - x"
 echo ""
 read -p "Which GUI woud you like to install (g/x)? " GUI_SELECT
 
-#Ask if the user wants to install additional script files
 echo ""
 read -p "Would you like to install additional script files (y/n)? " SCRIPT_INSTALL
 
-#Check if the user wants to add a network share
 echo ""
 read -p "Would you like to mount a network share (y/n)? " SHARE_INSTALL
 
@@ -65,37 +65,32 @@ read -p "Would you like to mount a network share (y/n)? " SHARE_INSTALL
 		echo ""
 	fi
 
-#Ask if the user wants to add VPN
 echo ""
 read -p "Would you like to install VPN service? (y/n): " VPN_INSTALL
 
-#Ask if the user wants to add spotify repository
-echo ""
-read -p "Would you like to add Spotify repository? (y/n): " SPOTIFY
-
-#Ask if the user wants to add Signal repository
-echo ""
-read -p "Would you like to add Signal repository? (y/n): " SIGNAL
-
-#Ask if the user wants to add other apps
-echo ""
-read -p "Would you like to download additional .deb files? (y/n): " OTHER_APPS
-
-#Ask if the user wants to add nVidia drivers PPA
 echo ""
 read -p "Would you like to install nVidia drivers? (y/n): " NVIDIA_DRIVERS
 
-#Ask if the user wants to add nVidia drivers PPA
 echo ""
-read -p "Would you like to install Brave browser? (y/n): " BRAVE
+read -p "Would you like to add Spotify repository? (y/n): " SPOTIFY
 
-#Ask if the user wants to add nVidia drivers PPA
 echo ""
-read -p "Would you like to install GitHub desktop (Linux fork)? (y/n): " GITHUB
+read -p "Would you like to add Signal repository? (y/n): " SIGNAL
 
-#Ask user if wants to reboot when finished
 echo ""
-read -p "Would you like to shutdown the system when finished? (y/n): " SHUTDOWN_NOW
+read -p "Would you like to add Brave browser repository? (y/n): " BRAVE
+
+echo ""
+read -p "Would you like to add GitHub desktop repository? (y/n): " GITHUB
+
+echo ""
+read -p "Would you like to add Mullvad VPN repository? (y/n): " MULLVAD
+
+echo ""
+read -p "Would you like to download additional .deb files? (y/n): " OTHER_APPS
+
+echo ""
+read -p "Would you like to rbeoot the system when finished? (y/n): " SHUTDOWN_NOW
 
 #Display summary
 clear
@@ -104,7 +99,7 @@ echo "Please check the summary below..."
 echo ""
 echo "Username:                          ${USERNAME_INSTALL}"
 	if [ $SUDO_GIVE = y ]; then
-		echo "                                   sudo granted"
+		echo "                                   sudo WILL be granted"
 	else
 		echo "                                   sudo NOT granted"
 	fi
@@ -117,15 +112,23 @@ echo "Network share added:               ${SHARE_INSTALL}"
 	else
 		echo "                                   no changes to fstab"
 	fi
-echo "Install VPN service:               ${VPN_INSTALL}"
-echo "Install Spotify repository:        ${SPOTIFY}"
-echo "Install Signal repository:         ${SIGNAL}"
-echo "Download other apps:               ${OTHER_APPS}"
-echo "Install nVidia drivers:            ${NVIDIA_DRIVERS}"
-echo "Shutdown after finishing:          ${SHUTDOWN_NOW}"
+echo "Install VPN service:              ${VPN_INSTALL}"
+echo "Install nVidia drivers:           ${NVIDIA_DRIVERS}"
+echo "Install Spotify repository:       ${SPOTIFY}"
+echo "Install Signal repository:        ${SIGNAL}"
+echo "Install Brave repository:         ${BRAVE}"
+echo "Install GitHub repository:        ${GITHUB}"
+echo "Install Mullvad repository:       ${MULLVAD}"
+echo "Download other apps:              ${OTHER_APPS}"
+echo "Shutdown after finishing:         ${SHUTDOWN_NOW}"
+echo ""
+echo "So far no changes to your system have been made."
 echo ""
 echo "Script will start working on your system after this prompt."
 echo "Time needed for completion depends on your system and internet speed"
+echo ""
+echo "If you chose to install nVidia drivers then you will be asked to hit"
+echo "return at some point during the installation"
 echo ""
 echo "Log file will be created in /home/${USERNAME_INSTALL}/ddh-log.txt"
 echo ""
@@ -144,11 +147,12 @@ echo "Debian Deployment Helper log
 ============================
 " >> ${DDH_LOG}
 
-#Add note in log if user granted sudo
+#Grant sudo
 if [ $SUDO_GIVE = y ]; then
-	echo "User ${USERNAME_INSTALL} has been granted sudo privilege" >> ${DDH_LOG}
+	usermod -aG sudo ${USERNAME_INSTALL}
+	echo "User ${USERNAME_INSTALL} has been added to the sudo group" >> ${DDH_LOG}
 else
-	echo "User ${USERNAME_INSTALL} has not been granted sudo privilege" >> ${DDH_LOG}
+	echo ""
 fi
 
 #Export variables for use with other modules
@@ -188,53 +192,22 @@ apt upgrade -y
 
 echo "System is up to date" >> ${DDH_LOG}
 
-#Install GUI + utilities
+#Execute modules
 ./data/02_packages_system.sh
 ./data/03_packages_GUI.sh
 ./data/04_packages_utilities.sh
-
-#Install additional script files and create aliases for them
 ./data/05_add_script.sh
-
-#Amend fstab for network share
 ./data/06_shares.sh
-
-#Add aliases
 ./data/07_alias.sh
-
-#Add vpn
 ./data/08_vpn.sh
-
-#Add spotify repository
 ./data/09_spotify.sh
-
-#Install other non-free apps
 ./data/10_other_apps.sh
-
-#Install nVidia drivers
 ./data/11_nvidia.sh
-
-#Add spotify repository
 ./data/12_signal.sh
-
-#Add brave repository
 ./data/13_brave.sh
-
-#Add github repository
 ./data/14_github.sh
-
-#Add mullvad repository
 ./data/15_mullvad.sh
 
-#Put wallpaper in the correct place for immediate use
-#./data/13_wallpaper.sh
-
-#Write out all installed packages (moved here so the long list is at the end)
-echo "
-Following packages have been installed:" >> ${DDH_LOG}
-awk '$3~/^install$/ {print $4;}' /var/log/dpkg.log >> ${DDH_LOG}
-
-#Write out all installed packages (moved here so the long list is at the end)
 echo "
 Commands to install additional software:
 
@@ -243,8 +216,8 @@ sudo apt install signal-desktop -y
 sudo apt install brave-browser -y
 sudo apt install mullvad-vpn
 sudo apt install github-desktop
-sudo dpkg -i XnViewMP-linux-x64.deb -y
-sudo dpkg -i steam_latest.deb -y
+XnViewMP-linux-x64.deb - install via Software Install
+steam_latest.deb - install via Software Install
 
 " >> ${DDH_LOG}
 
@@ -252,7 +225,7 @@ apt update
 
 #Shutdown section
 	if [ $SHUTDOWN_NOW = y ]; then
-		shutdown now
+		reboot now
 	else
 		echo ""
 		echo "Script has finished, please reboot your system..."

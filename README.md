@@ -91,9 +91,11 @@ To install execute 'sudo dpkg -i $package_name -y' from the ~/ directory
 
 Changelog
 =========================================================
+1.9 - 16/09/2024
+Some fixes
+
 1.8 - 16/09/2024
-Ditching Ubuntu so fixed the script for Debian 12 (Bookworm), same
-functionality, just an update
+Updated for Debian 12 (Bookworm)
 
 1.7 - 20/09/2021
 Fixed SSH script as expect did not recognise variables properly

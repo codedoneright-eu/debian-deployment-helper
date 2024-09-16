@@ -3,11 +3,11 @@
 #This will install GNOME desktop environment
 if [ $GUI_SELECT = g ]; then
 
-	apt install gnome --no-install-recommends -y
-	apt install gnome-shell-extensions -y
-	apt install gnome-tweak-tool -y
-	apt install gpaste -y
-	apt install gnome-shell-extension-gpaste -y
+	apt install gnome -y 
+	apt install gnome-tweaks -y 
+	apt install gnome-shell-extensions -y 
+	apt install gpaste-2 -y 
+	apt install gnome-shell-extension-gpaste -y 
 	echo "Installed GNOME desktop" >> ${DDH_LOG}
 
 
@@ -30,6 +30,11 @@ elif [ $GUI_SELECT = x ]; then
 	echo "Installed XFCE4 desktop" >> ${DDH_LOG}
 
 else
-	echo ""
+	apt install gnome -y 
+	apt install gnome-tweaks -y 
+	apt install gnome-shell-extensions -y 
+	apt install gpaste-2 -y 
+	apt install gnome-shell-extension-gpaste -y 
+	echo "Installed GNOME desktop" >> ${DDH_LOG}
 fi
 

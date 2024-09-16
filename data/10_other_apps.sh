@@ -8,7 +8,8 @@ if [ $OTHER_APPS = y ]; then
 	# Copy deb files to user's $home and change owner
 	cp *.deb /home/${USERNAME_INSTALL}/
 	chown ${USERNAME_INSTALL}:${USERNAME_INSTALL} /home/${USERNAME_INSTALL}/*.deb
-	echo "Steam and XnViewMP downloaded to ~/" >> ${DDH_LOG}
+	
+	echo "Other apps downloaded to ~/" >> ${DDH_LOG}
 
 else
 	echo ""
