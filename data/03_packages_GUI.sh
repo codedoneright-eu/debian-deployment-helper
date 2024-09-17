@@ -6,8 +6,7 @@ if [ $GUI_SELECT = g ]; then
 	apt install gnome -y 
 	apt install gnome-tweaks -y 
 	apt install gnome-shell-extensions -y 
-	apt install gpaste-2 -y 
-	apt install gnome-shell-extension-gpaste -y 
+	apt install gnome-shell-extension-manager -y
 	echo "Installed GNOME desktop" >> ${DDH_LOG}
 
 
@@ -33,8 +32,7 @@ else
 	apt install gnome -y 
 	apt install gnome-tweaks -y 
 	apt install gnome-shell-extensions -y 
-	apt install gpaste-2 -y 
-	apt install gnome-shell-extension-gpaste -y 
+	apt install gnome-shell-extension-manager -y
 	echo "Installed GNOME desktop" >> ${DDH_LOG}
 fi
 
