@@ -157,6 +157,8 @@ elif
 else
 	echo "Caution! Wrong selection to sudo granting question" >> ${DDH_LOG}
 	echo "In order to grant sudo to the default user please run:" >> ${DDH_LOG}
+	echo "whoami" >> ${DDH_LOG}
+	echo "This is your username needed 3 lines later" >> ${DDH_LOG}
 	echo "sudo su -" >> ${DDH_LOG}
 	echo "Provide root password" >> ${DDH_LOG}
 	echo "usermod -aG sudo $name-of-your-user" >> ${DDH_LOG}
