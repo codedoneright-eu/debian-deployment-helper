@@ -8,6 +8,7 @@ if [ $SIGNAL = y ]; then
 	sudo tee /etc/apt/sources.list.d/signal-xenial.list
 
 	echo "Signal repository added" >> ${DDH_LOG}
+	echo "Install with - sudo apt install signal-desktop" >> ${DDH_LOG}
 
 else
 	echo ""

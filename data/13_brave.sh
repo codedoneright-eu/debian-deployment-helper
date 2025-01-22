@@ -5,6 +5,7 @@ if [ $BRAVE = y ]; then
 	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
 	echo "Brave browser repository added" >> ${DDH_LOG}
+	echo "Install with - sudo apt install brave-browser" >> ${DDH_LOG}
 
 else
 	echo ""

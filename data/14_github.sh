@@ -5,6 +5,7 @@ if [ $GITHUB = y ]; then
 	sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/shiftkey-packages.gpg] https://apt.packages.shiftkey.dev/ubuntu/ any main" > /etc/apt/sources.list.d/shiftkey-packages.list'
 
 	echo "GitHub desktop repository added" >> ${DDH_LOG}
+	echo "Install with - sudo apt install github-desktop" >> ${DDH_LOG}
 
 else
 	echo ""

@@ -45,10 +45,9 @@ read -p "Would you like to add your non-administrative user to sudo group (y/n):
 echo ""
 echo "Which desktop environment do you want to install..."
 echo "GNOME - g"
-echo "xfce4 - x"
 
 echo ""
-read -p "Which GUI woud you like to install (g/x)? " GUI_SELECT
+read -p "Which GUI woud you like to install (g)? " GUI_SELECT
 
 echo ""
 read -p "Would you like to install additional script files (y/n)? " SCRIPT_INSTALL
@@ -74,8 +73,8 @@ read -p "Would you like to install nVidia drivers? (y/n): " NVIDIA_DRIVERS
 echo ""
 read -p "Would you like to add Spotify repository? (y/n): " SPOTIFY
 
-echo ""
-read -p "Would you like to add Signal repository? (y/n): " SIGNAL
+#echo ""
+#read -p "Would you like to add Signal repository? (y/n): " SIGNAL
 
 echo ""
 read -p "Would you like to add Brave browser repository? (y/n): " BRAVE
@@ -112,15 +111,15 @@ echo "Network share added:               ${SHARE_INSTALL}"
 	else
 		echo "                                   no changes to fstab"
 	fi
-echo "Install VPN service:              ${VPN_INSTALL}"
-echo "Install nVidia drivers:           ${NVIDIA_DRIVERS}"
-echo "Install Spotify repository:       ${SPOTIFY}"
-echo "Install Signal repository:        ${SIGNAL}"
-echo "Install Brave repository:         ${BRAVE}"
-echo "Install GitHub repository:        ${GITHUB}"
-echo "Install Mullvad repository:       ${MULLVAD}"
-echo "Download other apps:              ${OTHER_APPS}"
-echo "Shutdown after finishing:         ${SHUTDOWN_NOW}"
+echo "Install VPN service:               ${VPN_INSTALL}"
+echo "Install nVidia drivers:            ${NVIDIA_DRIVERS}"
+echo "Install Spotify repository:        ${SPOTIFY}"
+echo "Install Signal repository:         ${SIGNAL}"
+echo "Install Brave repository:          ${BRAVE}"
+echo "Install GitHub repository:         ${GITHUB}"
+echo "Install Mullvad repository:        ${MULLVAD}"
+echo "Download other apps:               ${OTHER_APPS}"
+echo "Shutdown after finishing:          ${SHUTDOWN_NOW}"
 echo ""
 echo "So far no changes to your system have been made."
 echo ""
@@ -194,8 +193,8 @@ deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free
 deb-src http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware" > /etc/apt/sources.list
 
 #Connect to the internet by establishing connection
-echo "Establishing connection and updating the system..."
-dhclient
+echo "Updating the system..."
+#dhclient
 apt update
 apt upgrade -y
 
@@ -212,7 +211,7 @@ echo "System is up to date" >> ${DDH_LOG}
 ./data/09_spotify.sh
 ./data/10_other_apps.sh
 ./data/11_nvidia.sh
-./data/12_signal.sh
+#./data/12_signal.sh
 ./data/13_brave.sh
 ./data/14_github.sh
 ./data/15_mullvad.sh
@@ -223,8 +222,8 @@ Commands to install additional software:
 sudo apt install spotify-client -y
 sudo apt install signal-desktop -y
 sudo apt install brave-browser -y
-sudo apt install mullvad-vpn
-sudo apt install github-desktop
+sudo apt install mullvad-vpn -y
+sudo apt install github-desktop -y
 XnViewMP-linux-x64.deb - install via Software Install
 steam_latest.deb - install via Software Install
 
